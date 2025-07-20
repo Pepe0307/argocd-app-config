@@ -46,3 +46,28 @@ spec:
     automated:
       selfHeal: true
       prune: true
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: flask-k8s-api
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/Pepe0307/argocd-app-config.git
+    targetRevision: HEAD
+    path: flask-k8s-api
+  destination: 
+    server: https://kubernetes.default.svc
+    namespace: flask-k8s-api
+
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+
+    automated:
+      selfHeal: true
+      prune: true
